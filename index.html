@@ -3,77 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Operator Insights - Redirecting</title>
+    <title>Operator Insights</title>
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            background: #f5f5f7;
-            color: #1d1d1f;
+            min-height: 100vh;
+            background: #0a0a0f;
+            color: #fff;
         }
         .container {
             text-align: center;
             padding: 2rem;
+            max-width: 360px;
         }
-        .spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #e5e5e5;
-            border-top-color: #007aff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 1rem;
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        a {
-            color: #007aff;
-            text-decoration: none;
-            font-size: 1.1rem;
+        h1 {
+            font-size: 1.4rem;
             font-weight: 600;
+            margin-bottom: 0.5rem;
         }
-        a:hover {
-            text-decoration: underline;
+        p {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+        .btn {
+            display: inline-block;
+            background: #007aff;
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 0.9rem 2.5rem;
+            border-radius: 14px;
+            text-decoration: none;
+            letter-spacing: -0.01em;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .btn:active {
+            opacity: 0.85;
         }
     </style>
-    <script>
-        // Build the deep link URL with all OAuth params from Square
-        const params = window.location.search;
-        const redirectUrl = 'operatorinsights://oauth-callback' + params;
-
-        // Method 1: window.location.replace (no history entry, cleaner)
-        window.location.replace(redirectUrl);
-
-        // Method 2: fallback via href assignment after brief delay
-        setTimeout(function() {
-            window.location.href = redirectUrl;
-        }, 100);
-
-        // Show manual tap button after 2 seconds if both methods fail
-        setTimeout(function() {
-            document.getElementById('fallback').style.display = 'block';
-            document.getElementById('loading').style.display = 'none';
-        }, 2000);
-    </script>
 </head>
 <body>
     <div class="container">
-        <div id="loading">
-            <div class="spinner"></div>
-            <p>Returning to Operator Insights...</p>
-        </div>
-        <div id="fallback" style="display: none;">
-            <p>Tap the button below to finish signing in.</p>
-            <p><a id="manual-link" href="#">Open Operator Insights →</a></p>
-        </div>
+        <div class="icon">✓</div>
+        <h1>Square connected</h1>
+        <p>Tap the button below to return to Operator Insights and finish setting up.</p>
+        <a id="open-btn" class="btn" href="#">Open Operator Insights</a>
     </div>
     <script>
-        document.getElementById('manual-link').href = 'operatorinsights://oauth-callback' + window.location.search;
+        // Build the deep link with OAuth params from Square
+        const redirectUrl = 'operatorinsights://oauth-callback' + window.location.search;
+        document.getElementById('open-btn').href = redirectUrl;
     </script>
 </body>
 </html>

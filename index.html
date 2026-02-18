@@ -20,21 +20,14 @@
             font-size: 1.05rem; font-weight: 600; padding: 0.9rem 2.5rem;
             border-radius: 14px; text-decoration: none;
         }
+        .btn:active { opacity: 0.8; }
     </style>
-    <script>
-        var params = window.location.search;
-        // Only redirect if we actually have an OAuth code
-        if (params.indexOf('code=') !== -1) {
-            var redirectUrl = 'operatorinsights://oauth-callback' + params;
-            window.location.replace(redirectUrl);
-        }
-    </script>
 </head>
 <body>
     <div class="container">
         <div class="icon">✓</div>
         <h1>Square connected</h1>
-        <p>Returning to Operator Insights...</p>
+        <p>Tap below to return to Operator Insights.</p>
         <a id="open-btn" class="btn" href="#">Open Operator Insights</a>
     </div>
     <script>

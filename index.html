@@ -34,20 +34,27 @@
         a {
             color: #007aff;
             text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 600;
         }
         a:hover {
             text-decoration: underline;
         }
     </style>
     <script>
-        // Get the full query string from the URL
+        // Build the deep link URL with all OAuth params from Square
         const params = window.location.search;
         const redirectUrl = 'operatorinsights://oauth-callback' + params;
 
-        // Redirect to the app's custom URL scheme
-        window.location.href = redirectUrl;
+        // Method 1: window.location.replace (no history entry, cleaner)
+        window.location.replace(redirectUrl);
 
-        // Fallback: if redirect doesn't work after 2 seconds, show manual link
+        // Method 2: fallback via href assignment after brief delay
+        setTimeout(function() {
+            window.location.href = redirectUrl;
+        }, 100);
+
+        // Show manual tap button after 2 seconds if both methods fail
         setTimeout(function() {
             document.getElementById('fallback').style.display = 'block';
             document.getElementById('loading').style.display = 'none';
@@ -58,11 +65,11 @@
     <div class="container">
         <div id="loading">
             <div class="spinner"></div>
-            <p>Redirecting to Operator Insights...</p>
+            <p>Returning to Operator Insights...</p>
         </div>
         <div id="fallback" style="display: none;">
-            <p>Redirect didn't work automatically.</p>
-            <p><a id="manual-link" href="#">Open Operator Insights</a></p>
+            <p>Tap the button below to finish signing in.</p>
+            <p><a id="manual-link" href="#">Open Operator Insights →</a></p>
         </div>
     </div>
     <script>
